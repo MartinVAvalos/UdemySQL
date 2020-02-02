@@ -1,0 +1,86 @@
+Section 10: Revising Data Types
+
+Won't cover all data types, but will cover commonly used ones.
+
+NOTE:
+This is needed to continue the exercises
+
+
+***************************************************
+    The bellow are commands used in Section 10:
+***************************************************
+CREATE DATABASE new_testing_db;
+
+CREATE TABLE dogs (
+    name CHAR(5),
+    breed VARCHAR(10)
+);
+
+INSERT INTO dogs (name, breed)
+VALUES ('bob', 'beagle'),
+VALUES ('robby', 'corgi'),
+VALUES ('Princess Jane', 'Retriever'),
+VALUES ('Princess Jane', 'Retrieverabhebeldhewuih');
+
+
+CREATE TABLE items (price DECIMAL(5,2));
+
+INSERT INTO items(price) 
+VALUES
+    (7),
+    (7987654),
+    (34.88),
+    (298.9999),
+    (1.9999);
+
+CREATE TABLE thingies (price FLOAT);
+INSERT INTO thingies(price) 
+VALUES
+    (88.45),
+    (8877.45),
+    (8877665544.45);
+
+CREATE TABLE people (name VARCHAR(100), birthdate DATE, birthtime TIME, birthdt DATETIME);
+
+INSERT INTO people (name, birthdate, birthtime, birthdt)
+VALUES('Padma', '1983-11-11', '10:07:35', '1983-11-11 10:07:35');
+
+INSERT INTO people (name, birthdate, birthtime, birthdt)
+VALUES('Larry', '1943-12-25', '04:10:42', '1943-12-25 04:10:42');
+
+INSERT INTO people (name, birthdate, birthtime, birthdt)
+VALUES('Toaster', CURDATE(), CURTIME(), NOW());
+
+SELECT * FROM people;
+
+CREATE TABLE comments (
+    content VARCHAR(100),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+INSERT INTO comments (content) VALUES ('lol what a funny article');
+INSERT INTO comments (content) VALUES ('I found this offensive');
+INSERT INTO comments (content) VALUES ('Ifasfsadfsadfsad');
+
+CREATE TABLE comments2 (
+    content VARCHAR(100),
+    changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
+);
+ 
+INSERT INTO comments2 (content) VALUES('dasdasdasd');
+
+INSERT INTO comments2 (content) VALUES('lololololo');
+
+INSERT INTO comments2 (content) VALUES('I LIKE CATS AND DOGS');
+
+UPDATE comments2 SET content='THIS IS NOT GIBBERISH' 
+WHERE content='dasdasdasd';
+
+SELECT * FROM comments2;
+
+The bellow is a note on how you can replace CURRENT_TIMESTAMP with NOW() in this particular instance.
+CREATE TABLE comments2 (
+    content VARCHAR(100),
+    changed_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW()
+);
+

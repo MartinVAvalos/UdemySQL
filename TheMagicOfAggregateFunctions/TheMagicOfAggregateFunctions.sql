@@ -1,6 +1,7 @@
 -- ********************************************************* --
 --     Before starting challenge. You must run this code:    --
 -- ********************************************************* --
+
 -- CREATE DATABASE book_shop;
 
 -- CREATE TABLE books 
@@ -43,59 +44,47 @@
 --                 CHALLENGE BELLOW                          --
 -- ********************************************************* --
 
---  Q. Select all titles that contain 'stories' as 'title'.
---  A. 
--- SELECT title FROM books WHERE title LIKE '%stories%';
-
--- Q. Find the longest book.
+-- Q. Print the number of books in the database.
 -- A.
--- SELECT title, pages 
--- FROM books 
--- ORDER BY pages DESC 
--- LIMIT 1; 
+-- SELECT COUNT(*) FROM books;
 
--- Q. Print a summary containing the title and year, for the 3 most recent books.
+-- Q. Print how many books were released in each year.
+-- A.
+-- I included ORDER BY; was not needed for answer --
+-- SELECT DISTINCT released_year, COUNT(*) 
+-- FROM books
+-- GROUP BY released_year
+-- ORDER BY released_year ASC;
+
+-- Q. Print out the total number of books in stock.
+-- A.
+-- SELECT SUM(stock_quantity) FROM books;
+
+-- Q. Find the average released_year for each author
+-- A.
+-- SELECT author_lname, author_fname, AVG(released_year) FROM books GROUP BY author_lname, author_fname;
+
+-- Q. Find the full name of the author who wrote the longest book
 -- A.
 -- SELECT CONCAT(
---     title, ' - ', released_year
--- )
--- AS summary
--- FROM books
--- ORDER BY released_year DESC
--- LIMIT 3;
-
--- Q. Fina all books with an author_lname that contains a space(" ").
--- A.
--- SELECT title, author_lname
--- FROM books
--- WHERE author_lname LIKE '% %';
-
--- Q. Find the 3 books with the lowest stock quantity. Select title, year, and stock
--- A.
--- SELECT title, released_year, stock_quantity
--- FROM books
--- ORDER BY stock_quantity, title
--- LIMIT 3;
-
--- Q. Print title and author_lname, sorted first by author_lname and then by title
--- A.
--- SELECT title, author_lname
--- FROM books
--- ORDER BY author_lname, title;
-
--- Q. Sort alphabetically by last name. 
--- Print like this:
--- MY FAVORITE AUTHOR IS author_lname!
--- Note this must be all upper case.
--- Finally the column name should be 'yell'.
--- A.
--- SELECT CONCAT(
---     'MY FAVORITE AUTHOR IS ', 
---     UPPER(author_fname),
+--     author_fname,
 --     ' ',
---     UPPER(author_lname),
---     '!'
--- )
--- AS yell
+--     author_lname
+-- ) AS 'Author who wrote the longest book:'
 -- FROM books
--- ORDER BY author_lname;
+-- WHERE pages = (SELECT MAX(pages) FROM books);
+-- OR
+-- SELECT CONCAT(
+--     author_fname,
+--     ' ',
+--     author_lname
+-- ) AS 'Author who wrote the longest book:'
+-- FROM books
+-- ORDER BY pages DESC LIMIT 1;
+
+-- Q. Print the year, # of books in that year, and average pages in ascending order by year.
+-- A.
+-- SELECT released_year AS year,  COUNT(*) AS '# of books', AVG(pages) AS 'avg pages'
+-- FROM books
+-- GROUP BY released_year
+-- ORDER BY released_year ASC;
